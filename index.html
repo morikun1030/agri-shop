@@ -42,12 +42,24 @@
 <!-- ── メイン ─────────────────────────────────────────────── -->
 <main>
 
-  <!-- カテゴリ -->
-  <p class="section-title">カテゴリで絞り込む</p>
-  <div class="categories" id="categories"></div>
+  <!-- ビュー切り替えタブ -->
+  <div class="view-tabs">
+    <button class="view-tab active" data-view="products">🛒 商品一覧</button>
+    <button class="view-tab" data-view="kits">🎁 おすすめキット</button>
+  </div>
 
-  <!-- 商品グリッド -->
-  <div class="products-grid" id="products"></div>
+  <!-- 商品一覧ビュー -->
+  <div id="view-products">
+    <p class="section-title">カテゴリで絞り込む</p>
+    <div class="categories" id="categories"></div>
+    <div class="products-grid" id="products"></div>
+  </div>
+
+  <!-- キットビュー -->
+  <div id="view-kits" class="hidden">
+    <p class="section-title">シーン・季節別におすすめをまとめました</p>
+    <div class="kits-grid" id="kits"></div>
+  </div>
 
 </main>
 

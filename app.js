@@ -343,10 +343,218 @@ function renderProducts() {
 }
 
 // ============================================================
+//  キットデータ
+// ============================================================
+//
+//  ★ Amazon まとめてカートに入れる機能について ★
+//  各アイテムの asin フィールドに Amazon の商品 ASIN を入力すると、
+//  「Amazon まとめてカートへ」ボタンが有効になります。
+//
+//  ASIN の調べ方:
+//    Amazon の商品ページの URL → amazon.co.jp/dp/【ここがASIN】
+//    例: amazon.co.jp/dp/B09XXXXX → ASIN = B09XXXXX
+//
+//  asin が空文字 '' のままだとそのアイテムはカートURL対象外になります。
+// ============================================================
+
+const kits = [
+  {
+    id: 'spring-starter',
+    emoji: '🌸',
+    name: '春のスターターキット',
+    tagline: 'GWに向けて夏野菜を一から始めよう。種・土・肥料・道具がそろう入門セット。',
+    level: '初心者向け',
+    season: '3〜5月',
+    tip: '種まきは3〜4月が適期。発芽後は日当たりの良い場所に置き、本葉が2〜3枚になったら定植しましょう。',
+    items: [
+      { emoji: '🍅', name: 'ミニトマトの種',  keyword: 'ミニトマト こあまちゃん 種',  asin: '' },
+      { emoji: '🥒', name: 'きゅうりの種',    keyword: 'きゅうり 夏すずみ 種',        asin: '' },
+      { emoji: '🪴', name: '野菜用培養土',    keyword: '野菜用培養土 プランター',      asin: '' },
+      { emoji: '🌿', name: '有機配合肥料',    keyword: '有機配合肥料 野菜用',          asin: '' },
+      { emoji: '🔧', name: '移植ごてセット',  keyword: '移植ごて ミニスコップ セット', asin: '' },
+      { emoji: '🚿', name: 'じょうろ',        keyword: 'じょうろ 5L シャワー 野菜',   asin: '' },
+    ],
+  },
+  {
+    id: 'summer-vegetables',
+    emoji: '☀️',
+    name: '夏野菜フルセット（苗から）',
+    tagline: 'ゴールデンウィークに苗を植えてたっぷり収穫。支柱・防虫対策までまとめて。',
+    level: '初心者向け',
+    season: '5〜6月',
+    tip: '定植後は1週間ほど毎日水やりを。気温が上がる前の朝か夕方に水をあげると根付きやすくなります。',
+    items: [
+      { emoji: '🍅', name: 'トマト 接ぎ木苗',     keyword: 'トマト 接ぎ木苗 大玉',           asin: '' },
+      { emoji: '🥒', name: 'きゅうり 接ぎ木苗',   keyword: 'きゅうり 接ぎ木苗',              asin: '' },
+      { emoji: '🍆', name: 'ナス 接ぎ木苗',        keyword: 'ナス 接ぎ木苗',                  asin: '' },
+      { emoji: '🎋', name: '支柱セット',           keyword: '支柱 セット 家庭菜園 8本',       asin: '' },
+      { emoji: '🕸️', name: '防虫ネット',           keyword: '防虫ネット 家庭菜園 細目',        asin: '' },
+      { emoji: '🎍', name: 'マルチシート（黒）',   keyword: 'マルチシート 黒 家庭菜園',       asin: '' },
+    ],
+  },
+  {
+    id: 'autumn-greens',
+    emoji: '🍂',
+    name: '秋冬 葉物野菜キット',
+    tagline: '虫が減って育てやすい秋。ホウレンソウ・コマツナ・大根を一気に始めよう。',
+    level: '初心者向け',
+    season: '8〜10月',
+    tip: '秋まきは害虫が少なく初心者に最適です。霜が降りる前に不織布でトンネルをかけると冬も収穫できます。',
+    items: [
+      { emoji: '🥬', name: 'ホウレンソウの種', keyword: 'ホウレンソウ 次郎丸 種',        asin: '' },
+      { emoji: '🥗', name: 'コマツナの種',     keyword: 'コマツナ 種 家庭菜園',          asin: '' },
+      { emoji: '🥦', name: 'ブロッコリーの種', keyword: 'ブロッコリー 種 家庭菜園',      asin: '' },
+      { emoji: '🪨', name: '苦土石灰',         keyword: '苦土石灰 家庭菜園',             asin: '' },
+      { emoji: '🌱', name: '腐葉土',           keyword: '腐葉土 40L 家庭菜園',           asin: '' },
+      { emoji: '🕸️', name: '防虫ネット',       keyword: '防虫ネット 家庭菜園 細目',      asin: '' },
+    ],
+  },
+  {
+    id: 'balcony-starter',
+    emoji: '🪴',
+    name: 'ベランダ菜園スタートセット',
+    tagline: 'マンション・アパートのベランダでも本格家庭菜園。土から道具まで全部入り。',
+    level: '初心者向け',
+    season: '通年',
+    tip: 'ベランダは風が強いので支柱はしっかり立てましょう。受け皿を使って床を汚さないのもポイントです。',
+    items: [
+      { emoji: '📦', name: '大型プランター（深型）', keyword: '大型プランター 野菜用 深型',   asin: '' },
+      { emoji: '🪴', name: '野菜用培養土',           keyword: '野菜用培養土 プランター 14L', asin: '' },
+      { emoji: '🌿', name: '有機配合肥料',           keyword: '有機配合肥料 野菜用',         asin: '' },
+      { emoji: '🪣', name: 'プランター受け皿',       keyword: 'プランター 受け皿 セット',    asin: '' },
+      { emoji: '🚿', name: 'じょうろ',              keyword: 'じょうろ 5L シャワー 野菜',   asin: '' },
+      { emoji: '🔧', name: '移植ごてセット',        keyword: '移植ごて ミニスコップ セット', asin: '' },
+    ],
+  },
+  {
+    id: 'tools-only',
+    emoji: '🔧',
+    name: 'はじめての農具セット',
+    tagline: '家庭菜園に必要な道具をまとめて揃えたい方に。これだけあれば一通りこなせる。',
+    level: '初心者向け',
+    season: '通年',
+    tip: '道具は使った後に土をよく落として乾かすと長持ちします。刃物は年1回研ぐのがおすすめです。',
+    items: [
+      { emoji: '🔧', name: '移植ごてセット（3本組）',    keyword: '移植ごて ミニスコップ セット',    asin: '' },
+      { emoji: '🚿', name: 'じょうろ（5L・シャワー付き）', keyword: 'じょうろ 5L シャワー 野菜',     asin: '' },
+      { emoji: '🧤', name: '農作業用手袋',              keyword: '農作業手袋 滑り止め 薄手',        asin: '' },
+      { emoji: '✂️', name: '収穫用ハサミ（剪定ばさみ）', keyword: '収穫ハサミ 剪定ばさみ 家庭菜園', asin: '' },
+      { emoji: '🎋', name: '支柱セット',                keyword: '支柱 セット 家庭菜園 8本',       asin: '' },
+    ],
+  },
+  {
+    id: 'companion-plants',
+    emoji: '🤝',
+    name: 'コンパニオンプランツ基本セット',
+    tagline: '相性のよい野菜を組み合わせて病害虫を減らす。農薬に頼らない栽培を始めよう。',
+    level: '中級者向け',
+    season: '3〜5月',
+    tip: 'トマト＋バジル、キュウリ＋ネギなど相性のいい組み合わせを同じプランターに植えると効果的です。',
+    items: [
+      { emoji: '🍅', name: 'ミニトマトの種',       keyword: 'ミニトマト こあまちゃん 種',  asin: '' },
+      { emoji: '🌿', name: 'バジルの種',           keyword: 'バジル 種 ハーブ',            asin: '' },
+      { emoji: '🥒', name: 'きゅうりの種',         keyword: 'きゅうり 夏すずみ 種',        asin: '' },
+      { emoji: '🧅', name: '玉ねぎの種（ネオアース）', keyword: '玉ねぎ ネオアース 種',    asin: '' },
+      { emoji: '🪴', name: '野菜用培養土',         keyword: '野菜用培養土 プランター',     asin: '' },
+      { emoji: '🌱', name: '腐葉土',               keyword: '腐葉土 40L 家庭菜園',         asin: '' },
+    ],
+  },
+];
+
+// ============================================================
+//  Amazon まとめてカートURL 生成
+// ============================================================
+
+function amazonCartUrl(items) {
+  const withAsin = items.filter(i => i.asin && i.asin.trim() !== '');
+  if (withAsin.length === 0) return null;
+  const params = withAsin
+    .map((item, i) => `ASIN.${i + 1}=${item.asin.trim()}&Quantity.${i + 1}=1`)
+    .join('&');
+  return `https://www.amazon.co.jp/gp/aws/cart/add.html?AssociateTag=${AMAZON_ASSOCIATE_ID}&${params}`;
+}
+
+// ============================================================
+//  キット レンダリング
+// ============================================================
+
+function renderKits() {
+  const grid = document.getElementById('kits');
+
+  grid.innerHTML = kits.map(kit => {
+    const cartUrl = amazonCartUrl(kit.items);
+    const levelClass = kit.level === '初心者向け' ? 'badge-level-beginner' : 'badge-level-mid';
+
+    const itemsHtml = kit.items.map(item => `
+      <div class="kit-item">
+        <span class="kit-item-emoji">${item.emoji}</span>
+        <span class="kit-item-name">${item.name}</span>
+        <div class="kit-item-btns">
+          <a class="btn-mini btn-mini-amazon"
+             href="${amazonUrl(item.keyword)}"
+             target="_blank" rel="noopener noreferrer">Amazon</a>
+          <a class="btn-mini btn-mini-rakuten"
+             href="${rakutenUrl(item.keyword)}"
+             target="_blank" rel="noopener noreferrer">楽天</a>
+        </div>
+      </div>
+    `).join('');
+
+    const cartBtn = cartUrl
+      ? `<a class="btn-cart" href="${cartUrl}" target="_blank" rel="noopener noreferrer">
+           🛒 Amazon まとめてカートへ（${kit.items.filter(i => i.asin).length}点）
+         </a>`
+      : `<div class="btn-cart btn-cart-disabled">
+           ※ ASIN を設定すると Amazon まとめてカートが使えます
+         </div>`;
+
+    return `
+      <div class="kit-card">
+        <div class="kit-header">
+          <div class="kit-header-top">
+            <span class="kit-emoji">${kit.emoji}</span>
+            <div class="kit-meta">
+              <div class="kit-name">${kit.name}</div>
+              <div class="kit-badges">
+                <span class="badge ${levelClass}">${kit.level}</span>
+                <span class="badge badge-season">📅 ${kit.season}</span>
+              </div>
+            </div>
+          </div>
+          <div class="kit-tagline">${kit.tagline}</div>
+        </div>
+        <div class="kit-items-label">📦 セット内容（${kit.items.length}点）</div>
+        <div class="kit-items">${itemsHtml}</div>
+        <div class="kit-footer">
+          <div class="kit-tip">💡 ${kit.tip}</div>
+          ${cartBtn}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ============================================================
 //  初期化
 // ============================================================
 
 document.addEventListener('DOMContentLoaded', () => {
+  // 商品一覧
   renderCategories();
   renderProducts();
+
+  // キット
+  renderKits();
+
+  // タブ切り替え
+  document.querySelectorAll('.view-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      const view = tab.dataset.view;
+      document.getElementById('view-products').classList.toggle('hidden', view !== 'products');
+      document.getElementById('view-kits').classList.toggle('hidden', view !== 'kits');
+    });
+  });
 });
