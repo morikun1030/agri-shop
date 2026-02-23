@@ -2,12 +2,12 @@
 //  ★★★ ここを自分のIDに書き換えてください ★★★
 // ============================================================
 
-const AMAZON_ASSOCIATE_ID  = 'YOUR_AMAZON_ID-22';
+const AMAZON_ASSOCIATE_ID  = 'burichan0d-22';
 //  確認方法: Amazon アソシエイト管理画面
 //            → 上部メニュー「ツール」→「トラッキングID管理」
 //  例: myfarm-22
 
-const RAKUTEN_AFFILIATE_ID = 'YOUR_RAKUTEN_AFFILIATE_ID';
+const RAKUTEN_AFFILIATE_ID = '5140d37d.f8fb7eb4.5140d37e.429f963f';
 //  確認方法: 楽天アフィリエイト管理画面
 //            → 「リンク作成」→ 任意のバナーを選択 → 生成されたURLの
 //               hb.afl.rakuten.co.jp/hgc/ の後ろの英数字部分
