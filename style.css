@@ -1,0 +1,310 @@
+/* ── CSS Variables ─────────────────────────── */
+:root {
+  --primary:         #2E7D32;
+  --primary-light:   #4CAF50;
+  --primary-bg:      #E8F5E9;
+  --secondary:       #F57F17;
+  --secondary-light: #FFF9C4;
+  --amazon:          #FF9900;
+  --rakuten:         #BF0000;
+  --surface:         #FFFFFF;
+  --bg:              #F4F8F4;
+  --text:            #1A1A1A;
+  --text-muted:      #6B6B6B;
+  --border:          #DDE8DD;
+  --radius-sm:       8px;
+  --radius-md:       14px;
+  --radius-lg:       22px;
+  --shadow-sm:       0 1px 4px rgba(0,0,0,.07);
+  --shadow-md:       0 4px 18px rgba(0,0,0,.10);
+}
+
+/* ── Reset & Base ──────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic UI',
+               'Meiryo', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  font-size: 15px;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ── Header ────────────────────────────────── */
+header {
+  background: linear-gradient(135deg, var(--primary) 0%, #388E3C 100%);
+  color: #fff;
+  padding: 0 20px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  box-shadow: 0 2px 12px rgba(0,0,0,.2);
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.header-logo { font-size: 34px; line-height: 1; }
+
+.header-text .site-name {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: .3px;
+}
+
+.header-text .site-sub {
+  font-size: 12px;
+  opacity: .82;
+  margin-top: 1px;
+}
+
+/* ── Hero Banner ───────────────────────────── */
+.hero {
+  background: linear-gradient(160deg, #C8E6C9 0%, #DCEDC8 100%);
+  padding: 36px 20px 32px;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: clamp(20px, 4vw, 28px);
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.hero p {
+  font-size: 14px;
+  color: #3d6b40;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* ── Notice Banner ─────────────────────────── */
+.notice {
+  background: #FFFDE7;
+  border-bottom: 1px solid #FFE082;
+  padding: 10px 20px;
+  font-size: 12px;
+  color: #5D4037;
+  text-align: center;
+}
+
+/* ── Main Layout ───────────────────────────── */
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px 16px 60px;
+}
+
+/* ── Section Title ─────────────────────────── */
+.section-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+/* ── Category Tabs ─────────────────────────── */
+.categories {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.cat-btn {
+  padding: 8px 18px;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all .18s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.cat-btn:hover {
+  border-color: var(--primary-light);
+  color: var(--primary);
+  background: var(--primary-bg);
+}
+
+.cat-btn.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+  font-weight: 700;
+}
+
+/* ── Products Grid ─────────────────────────── */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 16px;
+}
+
+/* ── Product Card ──────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.card-thumb {
+  font-size: 60px;
+  text-align: center;
+  padding: 22px 16px 18px;
+  background: var(--primary-bg);
+  user-select: none;
+}
+
+.card-body {
+  padding: 14px 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card-category {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--primary);
+  background: var(--primary-bg);
+  padding: 2px 9px;
+  border-radius: 10px;
+  align-self: flex-start;
+}
+
+.card-name {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+.card-desc {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  flex: 1;
+  line-height: 1.55;
+}
+
+.card-season {
+  font-size: 11.5px;
+  color: var(--secondary);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ── Card Actions ──────────────────────────── */
+.card-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 12px 14px;
+  border-top: 1px solid var(--border);
+}
+
+.btn-shop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 9px 6px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity .18s, transform .12s;
+}
+
+.btn-shop:active { transform: scale(.97); }
+
+.btn-amazon {
+  background: var(--amazon);
+  color: #111;
+}
+
+.btn-amazon:hover { opacity: .88; }
+
+.btn-rakuten {
+  background: var(--rakuten);
+  color: #fff;
+}
+
+.btn-rakuten:hover { opacity: .88; }
+
+.btn-shop svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* ── Empty State ───────────────────────────── */
+.empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 64px 20px;
+  color: var(--text-muted);
+}
+
+.empty .icon { font-size: 52px; margin-bottom: 12px; }
+.empty p { font-size: 15px; }
+
+/* ── Footer ────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 20px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 2;
+}
+
+footer a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ── Responsive ────────────────────────────── */
+@media (max-width: 520px) {
+  .hero h1 { font-size: 18px; }
+  .products-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+  .card-thumb { font-size: 44px; padding: 16px 12px; }
+  .card-body { padding: 10px 12px; }
+  .card-name { font-size: 13px; }
+  .card-actions { padding: 10px 12px; gap: 6px; }
+  .btn-shop { font-size: 12px; padding: 8px 4px; }
+}
